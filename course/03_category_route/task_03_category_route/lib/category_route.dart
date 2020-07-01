@@ -3,10 +3,9 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import "category.dart";
 
-// TODO: Check if we need to import anything
-
-// TODO: Define any constants
+const _categoryIcon = Icons.cake;
 
 /// Category Route (screen).
 ///
@@ -15,8 +14,8 @@ import 'package:flutter/material.dart';
 ///
 /// While it is named CategoryRoute, a more apt name would be CategoryScreen,
 /// because it is responsible for the UI at the route's destination.
-class CategoryRoute extends StatelessWidget {
-  const CategoryRoute();
+class CategoryScreen extends StatelessWidget {
+  const CategoryScreen();
 
   static const _categoryNames = <String>[
     'Length',
@@ -40,17 +39,39 @@ class CategoryRoute extends StatelessWidget {
     Colors.red,
   ];
 
+  Widget _buildCategoryWidgets(List<Widget> categories) {
+    return ListView.builder(
+      itemBuilder: (BuildContext context, int index) => categories[index],
+      itemCount: categories.length,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    // TODO: Create a list of the eight Categories, using the names and colors
-    // from above. Use a placeholder icon, such as `Icons.cake` for each
-    // Category. We'll add custom icons later.
+    final categories = <Category>[];
 
-    // TODO: Create a list view of the Categories
-    final listView = Container();
+    for (var i = 0; i < _categoryNames.length; i++) {
+      categories.add(Category(
+        name: _categoryNames[i],
+        color: _baseColors[i],
+        iconLocation: _categoryIcon,
+      ));
+    }
+    ;
 
-    // TODO: Create an App Bar
-    final appBar = AppBar();
+    final listView = _buildCategoryWidgets(categories);
+
+    final appBar = AppBar(
+      backgroundColor: Colors.black12,
+      title: Text(
+        'Unit Converter',
+        style: TextStyle(
+          fontSize: 30,
+        ),
+      ),
+      elevation: 0.0,
+      centerTitle: true,
+    );
 
     return Scaffold(
       appBar: appBar,
